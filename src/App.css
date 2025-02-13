@@ -21,6 +21,12 @@
   border: 10px solid #edc131;
   border-radius: 10px;
   background-color: #cf7f7f; /* Ajout d'une couleur de fond pour mieux distinguer */
+  transition: transform 0.2s ease-in-out;
+  
+}
+.pokemon-card:hover{
+  transform: scale(1.05);
+  
 }
 
 .pokemon-card img {
@@ -31,6 +37,7 @@
    
 
 }
+
 .headercarte{
   display: flex;
   border: 10px solid #edc131;
@@ -88,13 +95,6 @@
 
 
 
-.search-button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
-  color: #333;
-}
 .logo {
   height: 6em;
   padding: 1.5em;

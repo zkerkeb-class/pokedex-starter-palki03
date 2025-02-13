@@ -14,12 +14,25 @@ const Header = ({ nom, image, type, attaque,spattaque,spdef,hp,speed,id,total}) 
         <div className="headercarte img" style={{ backgroundColor: "#ffffff", border: "5px solid #edc131"}}>
             <div className="typecarte" style={{ position: "absolute", right: "4%", top:"15%" }}>{type}</div>
             <img src={image} alt={nom} /></div>
-            <div className="headercarte"  >
-                <p>Spe Def : {spdef}</p>
-                <p>Spe Attaque : {spattaque}</p>
-                <p>Speed : {speed}</p>
-                <p>Attaque : {attaque}</p>
-            </div>  
+            <div className="headercarte" style={{ backgroundColor: "#cf7f7f", border:"0px" }} >
+                <div className="informationheader" style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                    <p style={{ textAlign: "left", flex: 1 }}>Spe Def :</p>
+                    <p style={{ textAlign: "right" }}>{spdef}</p>
+                </div>
+                <div className="informationheader" style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                    <p style={{ textAlign: "left", flex: 1 }}>Spe Attaque :</p>
+                    <p style={{ textAlign: "right" }}>{spattaque}</p>
+                </div>
+                <div className="informationheader" style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                    <p style={{ textAlign: "left", flex: 1 }}>Speed :</p>
+                    <p style={{ textAlign: "right" }}>{speed}</p>
+                </div>
+                <div className="informationheader" style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                    <p style={{ textAlign: "left", flex: 1 }}>Attaque :</p>
+                    <p style={{ textAlign: "right" }}>{attaque}</p>
+                </div>
+            </div>
+
         <div className="typecarte id" style={{ backgroundColor: '#ffffff' }}>
                 <p>{id}/{total}</p>
             </div>
