@@ -6,95 +6,6 @@
 }
 
 
-.pokemon-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 10px;
-  position: relative;
-  
-  max-height: 500px;
-  max-width: 350px; /* Ajuste la taille de la carte */
-  margin: 10px;
-  margin-bottom: 0px;
-  border: 10px solid #edc131;
-  border-radius: 10px;
-  background-color: #cf7f7f; /* Ajout d'une couleur de fond pour mieux distinguer */
-  transition: transform 0.2s ease-in-out;
-  
-}
-.pokemon-card:hover{
-  transform: scale(1.05);
-  
-}
-
-.pokemon-card img {
-  max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    object-fit: contain;
-   
-
-}
-
-.headercarte{
-  display: flex;
-  border: 10px solid #edc131;
-  flex-direction: column;
-  align-items: left;
-  text-align: left;
-  max-height: 45%;
-  padding: 10px;
-  min-width: 90%;
-  max-width: 100%; /* Ajuste la taille de la carte */
-  margin: 10px;
-  border: 1px solid #0a0909;
-
-  background-color: #ffffff; 
-}
-.informationheader {
-  display: flex; /* Met les éléments en ligne */
-  align-items: center; /* Centre verticalement */
-  justify-content: space-between; /* Répartit l'espace */
-  gap: 15px; /* Ajoute un espacement entre les éléments */
-  max-height: 90%;
-}
-.headercarte p {
-  margin: 2px 0; 
-  line-height: 1.2; 
-}
-.headercarte img {
-  align-items: center;
-  max-width: 100%;
-  max-height: 100%;
-  max-height: 200px;
-  min-width: 300px;
-}
-
-.typecarte {
-  border: 1px solid #0a0909;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  width: fit-content; 
-  margin-left: auto; 
-  padding: 5px ; 
-  border-radius: 5px;
-  background-color:#b0e3eb;
-}
-.typecarte.id {
-  width: 40px; 
-  height: 20px; 
-  display: absolute;
-  align-items: center;
-  justify-content: center; 
-  font-size: 14px;
-  padding: 5px; 
-}
-
-
-
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -107,30 +18,6 @@
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
 .container {
   display: flex;
   flex-wrap: wrap;  /* Permet aux cartes de passer à la ligne si l'écran est trop petit */

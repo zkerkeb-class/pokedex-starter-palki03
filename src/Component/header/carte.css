@@ -1,34 +1,3 @@
-.pokemon-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 10px;
-    position: relative;
-    
-    max-height: 500px;
-    max-width: 350px; /* Ajuste la taille de la carte */
-    margin: 10px;
-    margin-bottom: 0px;
-    border: 10px solid #edc131;
-    border-radius: 10px;
-    background-color: #cf7f7f; /* Ajout d'une couleur de fond pour mieux distinguer */
-    transition: transform 0.2s ease-in-out;
-    
-  }
-  .pokemon-card:hover{
-    transform: scale(1.05);
-    
-  }
-  
-  .pokemon-card img {
-    max-width: 100%;
-      height: auto;
-      border-radius: 10px;
-      object-fit: contain;
-     
-  
-  }
   
   .headercarte{
     display: flex;
@@ -37,7 +6,7 @@
     align-items: left;
     text-align: left;
     max-height: 45%;
-    padding: 10px;
+    padding: 5px;
     min-width: 90%;
     max-width: 100%; /* Ajuste la taille de la carte */
     margin: 10px;
@@ -45,29 +14,28 @@
   
     background-color: #ffffff; 
   }
-  .informationheader {
-    display: flex; /* Met les éléments en ligne */
-    align-items: center; /* Centre verticalement */
-    justify-content: space-between; /* Répartit l'espace */
-    gap: 15px; /* Ajoute un espacement entre les éléments */
-    max-height: 90%;
+  .card {
+    padding: 2em;
   }
+
+
   .informationheader p {
     margin: 2px 0;
-    line-height: 1.2;
-    font-weight: bold;
-    font-size: 16px; /* Exemple de taille de police */
+  
+    font-weight: 700;
+ 
   }
   .headercarte p {
     margin: 2px 0; 
-    line-height: 1.2; 
+    font-weight: 700;
+
   }
   .headercarte img {
     align-items: center;
     max-width: 100%;
     max-height: 100%;
-    max-height: 200px;
-    min-width: 300px;
+    max-height: 100%;
+    min-width: 50%;
   }
   
   .typecarte {
@@ -81,13 +49,88 @@
     border-radius: 5px;
     background-color:#b0e3eb;
   }
+.typecarte.favoris{
+    transition: transform 0.2s ease-in-out;
+    background-color: 0.3s ease;
+    
+}
+.typecarte.favoris:hover{
+  transform: scale(1.2);
+  background-color: rgb(122, 214, 151);
+
+}
+.informationheader attaque{
+    display: "flex";
+    justify-content: "space-between";
+     width: "100%";
+}
+
   .typecarte.id {
     width: 40px; 
     height: 20px; 
-    display: absolute;
+    display: sticky;
     align-items: center;
     justify-content: center; 
     font-size: 14px;
     padding: 5px; 
   }
   
+.pokemon-card img {
+  max-width: 100em;
+    height: auto;
+    border-radius: 10px;
+    object-fit: contain;
+   
+
+}
+
+
+.informationheader {
+  display: flex; /* Met les éléments en ligne */
+  align-items: center; /* Centre verticalement */
+  justify-content: space-between; /* Répartit l'espace */
+  gap: 15px; /* Ajoute un espacement entre les éléments */
+  max-height: 90%;
+}
+
+
+.container carte{
+    padding-top: 10px;
+}
+
+.pokemon-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    
+    max-height: 450px;
+    max-width: 310px; /* Ajuste la taille de la carte */
+    margin: 10px;
+    margin-bottom: 0px;
+    border: 10px solid #edc131;
+    border-radius: 10px;
+    background-color: #cf7f7f; /* Ajout d'une couleur de fond pour mieux distinguer */
+    transition: transform 0.2s ease-in-out;
+    
+  }
+  .pokemon-card:hover{
+    transform: scale(1.05);
+
+  }
+  
+  
+
+  .informationheader {
+    display: flex; /* Met les éléments en ligne */
+    align-items: center; /* Centre verticalement */
+    justify-content: space-between; /* Répartit l'espace */
+    gap: 15px; /* Ajoute un espacement entre les éléments */
+    max-height: 90%;
+  }
+
+  
+
+

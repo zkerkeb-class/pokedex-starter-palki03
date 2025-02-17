@@ -1,14 +1,22 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-const HeaderMenu = ({ verif, verif2, verif3}) => {
+const HeaderMenu = ({ verif, verif2, verif3,verif5}) => {
   const [search, setSearch] = useState("");
+  const [Home, setHome] = useState(true);
   
   
   const Change = (texte) => {
     setSearch(texte.target.value);
     verif(texte.target.value); // Met à jour le search dans le parent
   };
+
+  const ChangeHome = () => {
+    const newState = !Home;
+    setHome(newState);
+    verif5(newState); 
+  };
+
 
   // Fonction pour gérer la sélection du type
   const TypeChange = (type) => {
@@ -20,7 +28,7 @@ const HeaderMenu = ({ verif, verif2, verif3}) => {
 
   return (
     <nav>
-      <a href="#" className="nav-item is-active">Home</a> 
+      <a href="#" className="nav-item is-active" onClick={ChangeHome}>{!Home ? "Accueil" : "Favoris"}</a> 
       <select name="Langue" id="Langage"className="nav-item"style={{ backgroundColor: 'white', border: '0px', outline: 'none' }}onChange={LangueChange}>
         <option value="french">FRANCAIS</option>
         <option value="english">ANGLAIS</option>
@@ -48,7 +56,7 @@ const HeaderMenu = ({ verif, verif2, verif3}) => {
         <option value="Flying">VOL</option>
       </select>
 
-      <input type="text" className="nav-item" placeholder="Nom ..." value={search} onChange={Change} />
+      <input type="text" className="nav-item is active" placeholder="Nom ..." value={search} onChange={Change} />
       <button className="nav-item">🔍</button>
     </nav>
   );
@@ -57,7 +65,8 @@ const HeaderMenu = ({ verif, verif2, verif3}) => {
 HeaderMenu.propTypes = {
   verif: PropTypes.func.isRequired, 
   verif2: PropTypes.func.isRequired,
-  verif3: PropTypes.func.isRequired  
+  verif3: PropTypes.func.isRequired,
+  verif5: PropTypes.func.isRequired
 };
 
 export default HeaderMenu;
