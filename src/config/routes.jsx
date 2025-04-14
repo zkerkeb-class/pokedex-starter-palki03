@@ -7,6 +7,9 @@ import Home from "../Pages/Home";
 import Pokemon from "../Pages/Pokemon";
 import Menu from "../Pages/Menu";
 import login from "../Pages/login";
+import Nvcompte from "../Pages/Nvcompte";
+import Donner from "../Pages/Donner";
+
 
 
 let router = createBrowserRouter([
@@ -23,11 +26,17 @@ let router = createBrowserRouter([
     Component: Pokemon,
   },
   {
-    path: "/menu",
-    Component: Menu,
-  },
-  
- 
+      path: "/menu",
+      Component: Menu,
+    },
+    {
+      path: "/Nvcompte",
+      Component: Nvcompte,
+    },
+    {
+      path: "/Donner",
+      Component: Donner,
+    },
 ]);
 
 export default router;

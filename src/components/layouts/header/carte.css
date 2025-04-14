@@ -123,5 +123,52 @@ background-color: rgb(122, 214, 151);
   font-size: 0.95em;
 }
 
+.donner-container {
+  max-width: 400px; /* Largeur maximale du conteneur */
+  margin: 0 auto; /* Centrer le conteneur */
+  padding: 20px; /* Espacement interne */
+  border: 1px solid #ccc; /* Bordure autour du conteneur */
+  border-radius: 8px; /* Coins arrondis */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  background-color: #f9f9f9; /* Couleur de fond */
+}
+
+h1 {
+  text-align: center; /* Centrer le titre */
+  color: #333; /* Couleur du texte */
+}
+
+form {
+  display: flex; /* Utiliser flexbox pour le formulaire */
+  flex-direction: column; /* Disposer les éléments en colonne */
+}
+
+label {
+  margin-bottom: 5px; /* Espacement en bas des labels */
+  font-weight: bold; /* Mettre le texte en gras */
+}
+
+.input-field {
+  padding: 10px; /* Espacement interne des champs de saisie */
+  margin-bottom: 15px; /* Espacement en bas des champs de saisie */
+  border: 1px solid #ccc; /* Bordure des champs de saisie */
+  border-radius: 4px; /* Coins arrondis des champs de saisie */
+  font-size: 16px; /* Taille de la police */
+}
+
+.submit-button {
+  padding: 10px; /* Espacement interne du bouton */
+  background-color: #007bff; /* Couleur de fond du bouton */
+  color: white; /* Couleur du texte du bouton */
+  border: none; /* Pas de bordure */
+  border-radius: 4px; /* Coins arrondis du bouton */
+  cursor: pointer; /* Changer le curseur au survol */
+  font-size: 16px; /* Taille de la police */
+}
+
+.submit-button:hover {
+  background-color: #0056b3; /* Couleur de fond au survol */
+}
+
 
 

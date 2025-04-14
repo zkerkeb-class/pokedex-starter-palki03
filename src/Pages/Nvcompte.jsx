@@ -5,7 +5,7 @@ import PasswordForm from "../components/layouts/login/PasswordForm";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 
-export default function LoginPage() {
+export default function Nvcompte() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -13,24 +13,24 @@ export default function LoginPage() {
   //   navigate("/Nvcompte");
   // };
   
+  
 
   const handleSubmit = async ({ email, password }) => {
     try {
       setError("");
       setLoading(true);
-      const hashedPassword = CryptoJS.SHA256(password).toString();
-      // Appel à l'API d'authentification
-      const userData = await apiService.getUser(email, hashedPassword);
       
-      // Si l'authentification réussit, stocker les données utilisateur et rediriger
+      // Hachage SHA-256 (exemple, mais ne remplace pas bcrypt côté serveur)
+      const hashedPassword = CryptoJS.SHA256(password).toString();
+  
+      const userData = await apiService.createUser(email, hashedPassword);
       if (userData) {
         localStorage.setItem("user", JSON.stringify(userData));
-        navigate("/Home");
+        navigate("/");
       }
-      
     } catch (error) {
       console.error("Erreur de connexion:", error);
-      setError(error.message || "Identifiants incorrects");
+      setError(error.message || "mauvaisecrea");
     } finally {
       setLoading(false);
     }
@@ -39,7 +39,7 @@ export default function LoginPage() {
   return (
     <div className="login-container">
       <div className="login-card">
-        <h2 className="login-title">Connexion Pokémon</h2>
+        <h2 className="login-title">Nouvel utilisateur ?</h2>
         
         {error && (
           <div className="error-message">

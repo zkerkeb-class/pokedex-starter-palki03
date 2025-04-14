@@ -3,15 +3,28 @@ const userUrl = 'http://localhost:3000/api/users';
 import axios from "axios";
 
 export const apiService = {
-  getAllPokemon: async (name, lang, categorie) => {  // Ajout des paramètres "lang" et "name"
+  
+  getAllPokemon: async (name, lang, categorie,navigate) => {  // Ajout des paramètres "lang" et "name"
+    const user= JSON.parse(localStorage.getItem('user'));
+    const token=user.token;
+    console.log(token);
+    console.log("bonjur");
     try {
-      const response = await axios.get(`${url}/?searchname=${name}&lang=${lang}&categorie=${categorie}`);
+      const response = await axios.get(`${url}/?searchname=${name}&lang=${lang}&categorie=${categorie}`,{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       console.log(name, lang, categorie); // Utilisation de `await` pour récupérer la réponse
       console.log("Structure du premier Pokémon:", response.data[0]); // Affiche la structure du premier Pokémon
       console.log("Stats de base du premier Pokémon:", response.data[0]?.base); // Affiche les stats de base
       return response.data;  // Retourne les données pour les utiliser ailleurs
     } catch (error) {
       console.error("Erreur API", error);
+      if(error.response.status === 401){
+
+        ///navigate('/');
+        }
       throw error;
     }
   },
@@ -62,6 +75,11 @@ export const apiService = {
     try {
       // Trouver le plus petit ID disponible
       const newId = await apiService.minId();
+      const user= JSON.parse(localStorage.getItem('user'));
+      const token=user.token;
+      console.log(token);
+      console.log("bonjusssr");
+      console.log(token.email);
       
       const dataToSend = {
         id: newId, // Utiliser le plus petit ID disponible
@@ -73,7 +91,11 @@ export const apiService = {
       };
 
       console.log("Données envoyées à l'API pour création:", dataToSend);
-      const response = await axios.post(url, dataToSend);
+      const response = await axios.post(url, dataToSend,{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       
       if (response.status === 201) {
         console.log("Pokémon créé avec succès:", response.data);
@@ -159,11 +181,12 @@ export const apiService = {
   getUser: async (email, password) => {
     try {
       // Effectuer une requête GET pour l'authentification
-      const response = await axios.get(`${userUrl}/login`, {
-        params: { email, password }
-      });
+      const response = await axios.post(`${userUrl}/login`, { email, password });
+
       return response.data;
     } catch (error) {
+      console.log(error);
+      
       // Gestion des erreurs
       if (error.response) {
         throw new Error(`Erreur d'authentification: ${error.response.data.message || error.response.statusText}`);
@@ -173,8 +196,35 @@ export const apiService = {
         throw new Error(`Erreur inconnue: ${error.message}`);
       }
     }
-  }
-
+  },
   
-  ,
+  createUser: async (email, password) => {
+    console.log(email, password);
+    try {
+      const response = await axios.post(`${userUrl}/create`, {
+      email, 
+      password
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Erreur lors de la vérification de l'utilisateur: ${error.message}`);
+    }
+  },
+
+  giveCard: async (email, cardId) => {
+    try {
+      const user = JSON.parse(localStorage.getItem('user')); // Récupérer l'utilisateur du localStorage
+      const token = user ? user.token : null; // Récupérer le token
+
+      const response = await axios.post(`${url}/giveCard`, { email, cardId }, {
+        headers: {
+          'Authorization': `Bearer ${token}` // Ajouter l'en-tête Authorization
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Erreur lors de la tentative de donner une carte", error);
+      throw error;
+    }
+  },
 };

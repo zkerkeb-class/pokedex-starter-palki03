@@ -20,7 +20,7 @@ const HeaderMenu = ({ verif, verif2, verif3, verif5, verif6, verif4 }) => {
     if (isMenu) {
       navigate("/Home");
     } else {
-      navigate('/menu');//on va sur la page d'ajout de
+      navigate('/menu');
     }
   };
 
@@ -34,12 +34,19 @@ const HeaderMenu = ({ verif, verif2, verif3, verif5, verif6, verif4 }) => {
     }
   };
 
+  const ChangeJeu = () => {
+    navigate('/Donner');
+  };
+
   const TypeChange = (type) => {
     verif2(type.target.value);
   };
 
   const LangueChange = (langue) => {
     verif3(langue.target.value);
+  };
+  const Logout = () => {
+    navigate('/');
   };
 
   const FavorisChange = () => {
@@ -48,7 +55,7 @@ const HeaderMenu = ({ verif, verif2, verif3, verif5, verif6, verif4 }) => {
 
   return (
     <nav>
-        {isMenu && (
+      {isMenu && (
         <a href="#" className="nav-item is-active" onClick={ChangeHome}>
           Menu
         </a>
@@ -115,7 +122,8 @@ const HeaderMenu = ({ verif, verif2, verif3, verif5, verif6, verif4 }) => {
         value={search} 
         onChange={Change} 
       />
-      <button className="nav-item">🔍</button>
+      <button className="nav-item" onClick={ChangeJeu}>Jeu</button>
+      <button className="nav-item" onClick={Logout}>Déconnexion</button>
     </nav>
   );
 };

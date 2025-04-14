@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import HeaderMenu from '../components/layouts/header/header';
+import HeaderMenu from '../components/layouts/navigation/header';
 import Header from '../components/layouts/header';
 import { apiService } from '../services/api';
 
@@ -39,13 +39,15 @@ const Menu = () => {
     return maxId;
   };
 
-  const handleFavoriteChange = (id) => {
-    setpokelist(prevList => 
-      prevList.map(pokemon => 
-        pokemon.id === id ? { ...pokemon, favoris: pokemon.favoris === 1 ? 0 : 1 } : pokemon
-      )
-    );
-    console.log("Changement de favori pour l'ID:", id);
+  const handleFavoriteChange = async (pokemonId) => {
+    try {
+      // Logique pour gérer le changement de favori
+      // Par exemple, appeler une API pour mettre à jour le statut de favori
+      const updatedPokemon = await apiService.updateFavoriteStatus(pokemonId);
+      // Mettez à jour l'état local si nécessaire
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du favori:", error);
+    }
   };
 
   const favorisPokemons = pokelist.filter(pokemon => pokemon.favoris === 1);

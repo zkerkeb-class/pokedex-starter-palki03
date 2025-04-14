@@ -1,32 +1,35 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import './login.css';
+import './Donner.css';
 
-const PasswordForm = ({ onSubmit, isLoading }) => {
+const DonnerForm = ({ onSubmit, isLoading }) => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [id, setId] = useState('');
   const [error, setError] = useState('');
 
   const location = useLocation();
-  const navigate = useNavigate();
-  const isHomePage = location.pathname === '/';
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Validation basique
-    if (!email || !password) {
+    if (!email || !id) {
       setError('Veuillez remplir tous les champs');
       return;
     }
 
+    // Validation pour s'assurer que le numéro de carte est un entier positif
+    if (!/^\d+$/.test(id)) {
+      setError('Le numéro de carte doit être un nombre entier positif');
+      return;
+    }
+
     setError('');
-    onSubmit({ email, password });
+    onSubmit({ email, id });
   };
 
-  const handleNavigation = () => {
-    navigate(isHomePage ? '/nvcompte' : '/');
-  };
+  
 
   return (
     <form className="login-form" onSubmit={handleSubmit}>
@@ -35,7 +38,7 @@ const PasswordForm = ({ onSubmit, isLoading }) => {
       <div className="input-group">
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Email du destinataire"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="text-input"
@@ -45,24 +48,18 @@ const PasswordForm = ({ onSubmit, isLoading }) => {
 
       <div className="input-group">
         <input
-          type="password"
-          placeholder="Mot de passe"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          type="text"
+          placeholder="Numéro de carte"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
           className="text-input"
           required
         />
       </div>
 
-      <button type="submit" disabled={isLoading} className="login-button">
-        {isLoading ? 'Connexion...' : isHomePage ? 'Connexion' : 'Ajouter un compte'}
-      </button>
-
-      <button type="button" onClick={handleNavigation} className="login-button">
-        {isHomePage ? 'Créer un compte' : 'Retour à l\'accueil'}
-      </button>
+      <button type="submit" className="login-button">Envoyer la carte</button>
     </form>
   );
 };
 
-export default PasswordForm;
+export default DonnerForm;

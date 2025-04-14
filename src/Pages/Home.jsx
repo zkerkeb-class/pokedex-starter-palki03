@@ -1,12 +1,12 @@
 import { useState, useEffect} from "react";
-import HeaderMenu from '../components/layouts/header/header';
+import HeaderMenu from '../components/layouts/navigation/header';
 import Header from '../components/layouts/header';
 import '../components/layouts/header/carte.css';
-import '../components/layouts/header/nav.css';
+import '../components/layouts/navigation/nav.css';
 import routes from "../config/routes";
 import { apiService } from "../services/api";
 import '../App.css';
-
+import { useNavigate } from "react-router-dom";
 function App() {
 
   const [search, setSearch] = useState("");
@@ -17,15 +17,12 @@ function App() {
   const [pokelist, setPokelist] = useState([]);
   const [Fav,setFav]= useState(0);
   const [maxId, setMaxId] = useState(0);
-  // const [filter, setFilter] = useState
-  // const [pokemonsFavoris, setPokemonsFavoris] = useState(Tous); // Stockage de tous les pokemons avec leur état favoris
-
-
+  const navigate = useNavigate();
 
   useEffect(()=>{
     const fetchAllPokemons = async () => {
       // Charger tous les Pokémon une fois pour déterminer l'ID maximal
-      const allData = await apiService.getAllPokemon("", "french", "");
+      const allData = await apiService.getAllPokemon("", "french", "",navigate);
       if (allData && allData.length > 0) {
         const maxPokemonId = Math.max(...allData.map(pokemon => pokemon.id));
         setMaxId(maxPokemonId);
@@ -49,38 +46,28 @@ function App() {
     return maxId;
   };
 
-  // const handleFavoriteChange = async (pokemonId, isDeleted = false) => {
-  //   try {
-  //     // Si le Pokémon a été supprimé, le retirer de la liste
-  //     if (isDeleted) {
-  //       setPokelist(prevList => prevList.filter(p => p.id !== pokemonId));
-  //       return;
-  //     }
-      
-  //     // Sinon, mettre à jour le statut de favori comme avant
-  //     const pokemonToUpdate = pokelist.find(p => p.id === pokemonId);
-  //     if (pokemonToUpdate) {
-  //       const updatedPokemon = {
-  //         ...pokemonToUpdate,
-  //         favoris: pokemonToUpdate.favoris === 1 ? 0 : 1
-  //       };
-  //       await apiService.updatePokemon(updatedPokemon);
-        
-  //       // Mettre à jour la liste locale
-  //       setPokelist(prevList => 
-  //         prevList.map(p => 
-  //           p.id === pokemonId ? updatedPokemon : p
-  //         )
-  //       );
-  //     }
-  //   } catch (error) {
-  //     console.error("Erreur lors de la mise à jour des favoris:", error);
-  //   }
-  // };
+  
 
   const choixPokemonspasfav = pokelist.filter((pokemon) =>
     pokemon.favoris !== 0
   );
+
+  const handleFavoriteChange = async (pokemonId) => {
+    try {
+      // Logique pour gérer le changement de favori
+      const response = await fetch(`/api/pokemons/${pokemonId}/favorite`, {
+        method: 'PUT', // ou 'POST' selon votre API
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ favorite: true }), // ou false selon le cas
+      });
+      // Mettez à jour l'état local si nécessaire
+      // Par exemple, vous pouvez mettre à jour le pokelist ou un autre état
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du favori:", error);
+    }
+  };
 
   return (
     <div>

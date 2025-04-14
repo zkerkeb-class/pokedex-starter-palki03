@@ -187,7 +187,7 @@ const Header = ({ pokemon, ChangeFav, isFavorite, language, total, onUpdate, isC
       }
     } catch (error) {
       console.error("Erreur lors de la sauvegarde du Pokémon:", error);
-      alert("Une erreur est survenue lors de la sauvegarde du Pokémon.");
+      alert("Une erreur est survenue lors de la sauvegarde du Pokémon : " + (error.message || "Erreur inconnue"));
     }
   };
 

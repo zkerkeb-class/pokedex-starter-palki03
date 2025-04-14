@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import HeaderMenu from '../components/layouts/header/header';
+import HeaderMenu from '../components/layouts/navigation/header';
 import Header from '../components/layouts/header';
 import '../components/layouts/header/carte.css';
 import { apiService } from '../services/api';
@@ -14,7 +14,7 @@ const Pokemon = () => {
   const [Ajout, setAjout] = useState(true);
   const [Fav, setFav] = useState(0);
   const [maxPokemonId, setMaxPokemonId] = useState(0);
-  const [isInitialEditMode, setIsInitialEditMode] = useState(true);
+  const [isInitialEditMode, setIsInitialEditMode] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
 
