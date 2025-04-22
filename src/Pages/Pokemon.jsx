@@ -17,6 +17,7 @@ const Pokemon = () => {
   const [isInitialEditMode, setIsInitialEditMode] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showDeleteMessage, setShowDeleteMessage] = useState(false);
+  const creaquestion = location.pathname !== '/Home';
 
   const defaultPokemonData = {
     id: 999,
@@ -45,6 +46,16 @@ const Pokemon = () => {
   });
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user ? user.token : null;  // Vérifie si un utilisateur est connecté et récupère son token
+    console.log("Token:", token);
+
+    // Si aucun token n'est trouvé, redirige l'utilisateur
+    if (!token) {
+        console.log("Aucun token trouvé, redirection vers la page de connexion");
+        navigate('/');  // Redirige vers la page d'accueil ou de connexion
+        return;  // On arrête l'exécution de la fonction
+    }
     const loadPokemon = async () => {
       try {
         const id = new URLSearchParams(window.location.search).get('id');
@@ -75,6 +86,7 @@ const Pokemon = () => {
 
   const handleUpdate = (updatedPokemon, isDeleted = false) => {
     if (isDeleted) {
+      console.log("update");
       // Afficher un message de succès pour la suppression
       setShowDeleteMessage(true);
       
@@ -107,8 +119,9 @@ const Pokemon = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("submit");
     try {
-      const response = await apiService.updatePokemon(pokemonData);
+      const response = await apiService.CreatePokemon(pokemonData);
       console.log("Nouveau Pokémon créé:", response);
       alert("Pokémon créé avec succès!");
     } catch (error) {
@@ -180,9 +193,10 @@ const Pokemon = () => {
           isFavorite={pokemonData.favoris === 1}
           total={maxPokemonId}
           onUpdate={handleUpdate}
-          isCreationMode={true}
+          isCreationMode={creaquestion}
           isInitialEditMode={isInitialEditMode}
         />
+     
       </div>
     </div>
   );

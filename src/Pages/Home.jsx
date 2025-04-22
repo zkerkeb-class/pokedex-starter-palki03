@@ -27,6 +27,7 @@ function App() {
         const maxPokemonId = Math.max(...allData.map(pokemon => pokemon.id));
         setMaxId(maxPokemonId);
       }
+     
     };
     fetchAllPokemons();
   }, []);

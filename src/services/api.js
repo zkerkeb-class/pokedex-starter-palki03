@@ -4,30 +4,34 @@ import axios from "axios";
 
 export const apiService = {
   
-  getAllPokemon: async (name, lang, categorie,navigate) => {  // Ajout des paramètres "lang" et "name"
-    const user= JSON.parse(localStorage.getItem('user'));
-    const token=user.token;
-    console.log(token);
-    console.log("bonjur");
-    try {
-      const response = await axios.get(`${url}/?searchname=${name}&lang=${lang}&categorie=${categorie}`,{
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      console.log(name, lang, categorie); // Utilisation de `await` pour récupérer la réponse
-      console.log("Structure du premier Pokémon:", response.data[0]); // Affiche la structure du premier Pokémon
-      console.log("Stats de base du premier Pokémon:", response.data[0]?.base); // Affiche les stats de base
-      return response.data;  // Retourne les données pour les utiliser ailleurs
-    } catch (error) {
-      console.error("Erreur API", error);
-      if(error.response.status === 401){
+  getAllPokemon: async (name, lang, categorie, navigate) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user ? user.token : null;  // Vérifie si un utilisateur est connecté et récupère son token
+    console.log("Token:", token);
 
-        ///navigate('/');
-        }
-      throw error;
+    // Si aucun token n'est trouvé, redirige l'utilisateur
+    if (!token) {
+        console.log("Aucun token trouvé, redirection vers la page de connexion");
+        navigate('/');  // Redirige vers la page d'accueil ou de connexion
+        return;  // On arrête l'exécution de la fonction
     }
-  },
+
+    try {
+        const response = await axios.get(`${url}/?searchname=${name}&lang=${lang}&categorie=${categorie}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+                return response.data;  // Retourne les données pour les utiliser ailleurs
+    } catch (error) {
+        console.error("Erreur API", error);
+        if (error.response && error.response.status === 401) {
+            navigate('/');  // Si le token est invalide (401), redirige vers la page de connexion
+        }
+        throw error;  // Lance l'erreur pour qu'elle soit gérée ailleurs si nécessaire
+    }
+},
+
 
   // Trouve le plus petit ID disponible (supérieur à 0)
   minId: async () => {
@@ -72,13 +76,22 @@ export const apiService = {
   },
 
   createPokemon: async (pokemonData) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const token = user ? user.token : null;  // Vérifie si un utilisateur est connecté et récupère son token
+    console.log("Token:", token);
+
+    // Si aucun token n'est trouvé, redirige l'utilisateur
+    if (!token) {
+        console.log("Aucun token trouvé, redirection vers la page de connexion");
+        navigate('/');  // Redirige vers la page d'accueil ou de connexion
+        return;  // On arrête l'exécution de la fonction
+    }
     try {
       // Trouver le plus petit ID disponible
       const newId = await apiService.minId();
       const user= JSON.parse(localStorage.getItem('user'));
       const token=user.token;
       console.log(token);
-      console.log("bonjusssr");
       console.log(token.email);
       
       const dataToSend = {
@@ -108,10 +121,14 @@ export const apiService = {
       throw error;
     }
   },
-
-  updatePokemon: async (pokemonData) => {
+  updatePokemon: async (pokemonData, lang) => {
     try {
-      // S'assurer que toutes les données sont présentes
+      // Récupérer le token depuis le localStorage
+      const user = JSON.parse(localStorage.getItem('user'));
+      const token = user ? user.token : null;
+      console.log("Bonjour Token", token);
+  
+  
       const dataToSend = {
         id: pokemonData.id,
         name: pokemonData.name,
@@ -120,11 +137,15 @@ export const apiService = {
         base: pokemonData.base,
         favoris: pokemonData.favoris || 0
       };
-
+  
       console.log("Données envoyées à l'API:", dataToSend);
-      const response = await axios.put(`${url}/${pokemonData.id}`, dataToSend);
-      
-      // Vérifier si la réponse est réussie
+  
+      const response = await axios.put(`${url}/${pokemonData.id}`, dataToSend, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+  
       if (response.status === 200) {
         console.log("Pokémon mis à jour avec succès:", response.data);
         return response.data;
@@ -132,12 +153,14 @@ export const apiService = {
         throw new Error("Erreur lors de la mise à jour du Pokémon");
       }
     } catch (error) {
-      console.error("Erreur lors de la modification du Pokémon", error);
+      console.error("Erreur lors de la modification du Pokémon:", error.response?.data || error.message);
       throw error;
     }
   },
   
   deletePokemon: async (id) => {
+    const user= JSON.parse(localStorage.getItem('user'));
+    const token=user.token;
     try {
       if (!id) {
         console.error("ID invalide pour la suppression:", id);
@@ -147,7 +170,12 @@ export const apiService = {
       console.log("Tentative de suppression du Pokémon avec l'ID:", id);
       console.log("URL complète:", `${url}/${id}`);
       
-      const response = await axios.delete(`${url}/${id}`);
+      const response = await axios.delete(`${url}/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      });
+  
       
       console.log("Réponse du serveur:", response);
       

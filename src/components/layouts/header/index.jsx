@@ -35,13 +35,13 @@ const Header = ({ pokemon, ChangeFav, isFavorite, language, total, onUpdate, isC
     "Flying": "#A890F0"
   };
 
-  const handleChange = (e) => { /// si on detecte un changement de valeur pour une entrée du pokemon
+  const handleChange = (e) => { 
     const { name, value } = e.target;
     if (name === "name") {
-      setPokemonData(prev => ({ ///si le nom change
+      setPokemonData(prev => ({ 
         ...prev,
         name: {
-          french: value, // Utiliser la même valeur pour toutes les langues
+          french: value, 
           english: value,
           japanese: value,
           chinese: value
@@ -56,7 +56,6 @@ const Header = ({ pokemon, ChangeFav, isFavorite, language, total, onUpdate, isC
         }
       }));
     } else if (name === "spdef") {
-      // Pour la défense spéciale
       setPokemonData(prev => {
         if (prev.base["Sp. Defense"] !== undefined) {
           return {
@@ -145,31 +144,26 @@ const Header = ({ pokemon, ChangeFav, isFavorite, language, total, onUpdate, isC
 
   const handleSave = async () => {
     try {
-      // Normaliser la structure des données avant de les envoyer à l'API
-      const normalizedData = { ...pokemonData };
       
-      // Vérifier si la structure utilise Sp pour les statistiques spéciales
+      const normalizedData = { ...pokemonData };
       if (normalizedData.base.Sp) {
-        // Convertir la structure Sp en propriétés standard
         if (normalizedData.base.Sp[" Attack"] !== undefined) {
           normalizedData.base["Sp. Attack"] = Number(normalizedData.base.Sp[" Attack"]);
         }
         if (normalizedData.base.Sp[" Defense"] !== undefined) {
           normalizedData.base["Sp. Defense"] = Number(normalizedData.base.Sp[" Defense"]);
         }
-        // Supprimer l'objet Sp
+
         delete normalizedData.base.Sp;
       }
-      
-      // S'assurer que toutes les statistiques sont des nombres
       ["HP", "Attack", "Defense", "Sp. Attack", "Sp. Defense", "Speed"].forEach(stat => {
         if (normalizedData.base[stat] !== undefined) {
           normalizedData.base[stat] = Number(normalizedData.base[stat]);
         }
       });
-      
+     
       if (isCreationMode) {
-        // Création d'un nouveau Pokémon
+      console.log("true");
         const createdPokemon = await apiService.createPokemon(normalizedData);
         console.log("Pokémon créé:", createdPokemon);
         setIsEditing(false);
@@ -177,8 +171,8 @@ const Header = ({ pokemon, ChangeFav, isFavorite, language, total, onUpdate, isC
           onUpdate(createdPokemon);
         }
       } else {
-        // Mise à jour d'un Pokémon existant
-        const updatedPokemon = await apiService.updatePokemon(normalizedData);
+        console.log("pascration");
+        const updatedPokemon = await apiService.updatePokemon(normalizedData,language);
         console.log("Pokémon mis à jour:", updatedPokemon);
         setIsEditing(false);
         if (onUpdate) {
@@ -192,47 +186,35 @@ const Header = ({ pokemon, ChangeFav, isFavorite, language, total, onUpdate, isC
   };
 
   const handleCancel = () => {
-    setPokemonData(pokemon); ///si on annule on remet a 0
+    setPokemonData(pokemon);
     setIsEditing(false);
   };
 
-  // Nouvelle fonction pour gérer la suppression
   const handleDelete = async () => {
     try {
-      // Vérifier si l'ID est valide
       if (!pokemonData.id || pokemonData.id === 999) {
         alert("Impossible de supprimer ce Pokémon car son ID est invalide.");
         return;
       }
       
-      // Confirmer la suppression
       if (window.confirm(`Êtes-vous sûr de vouloir supprimer ${pokemonData.name[language] || pokemonData.name.french || "ce Pokémon"} ?`)) {
         console.log("Tentative de suppression du Pokémon avec ID:", pokemonData.id);
         
-        // Sauvegarder l'ID avant la suppression
         const deletedPokemonId = pokemonData.id;
         
-        // Appeler l'API pour supprimer le Pokémon
         try {
           const result = await apiService.deletePokemon(deletedPokemonId);
           console.log("Résultat de la suppression:", result);
-          
-          // Marquer le Pokémon comme supprimé dans l'état local
           setIsDeleted(true);
-          
-          // Notifier le composant parent de la suppression sans recharger la page
           if (onUpdate) {
-            onUpdate({ id: deletedPokemonId }, true); // Passer l'ID du Pokémon supprimé
+            onUpdate({ id: deletedPokemonId }, true);
           }
           
-          // Notifier également le composant ChangeFav si disponible
           if (ChangeFav) {
-            ChangeFav(deletedPokemonId, true); // Indiquer que le Pokémon a été supprimé
+            ChangeFav(deletedPokemonId, true); 
           }
         } catch (apiError) {
           console.error("Erreur API lors de la suppression:", apiError);
-          
-          // Afficher un message plus détaillé à l'utilisateur
           const errorMessage = apiError.message || "Une erreur inconnue est survenue";
           alert(`Erreur lors de la suppression du Pokémon: ${errorMessage}`);
         }
@@ -242,15 +224,12 @@ const Header = ({ pokemon, ChangeFav, isFavorite, language, total, onUpdate, isC
       alert("Une erreur générale est survenue lors de la suppression du Pokémon.");
     }
   };
-
   const premierType = Array.isArray(pokemonData.type) ? pokemonData.type[0] : pokemonData.type;
   const backgroundColor = typeColorMap[premierType] || "#ffffff";
 
-  // Si le Pokémon a été supprimé, ne pas afficher la carte
   if (isDeleted) {
     return null;
   }
-
   return (
     <div className="pokemon-card" style={{backgroundColor: backgroundColor}}>
       <div className="headercarte">
