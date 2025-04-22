@@ -140,7 +140,7 @@ export const apiService = {
   
       console.log("Données envoyées à l'API:", dataToSend);
   
-      const response = await axios.put(`${url}/${pokemonData.id}`, dataToSend, {
+      const response = await axios.put(`${url}/${pokemonData.id}/${lang}`, dataToSend, {
         headers: {
           'Authorization': `Bearer ${token}`,
         }
