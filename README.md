@@ -16,10 +16,11 @@ Ensuite une fois connectée a la page Jeu j'ai une interface me permettant d'ind
 J'ai donc du ajouter le parametre dresseur aux cartes pour savoir a qui appartient la carte.
 De plus l'id de carte n'est plus unique car chaque joueur a sa premiere carte a 1.
 Cela permet d'envoyer la carte. Il fallait s'assurer que :
-
     - l'email d'une personne existait
     - le numéro de la carte est bien présent dans les cartes du dresseur.
+
 l'id n'étant plus unique j'ai du modifier toutes les requetes API.
+
 Pour modifier il fallait verifier :
     - la carte appartient au dresseur du token ?
     - la carte a le meme numéro que celui indiqué ?
