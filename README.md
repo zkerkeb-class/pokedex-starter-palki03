@@ -33,9 +33,10 @@ En conséquence l'id est adaptative elle prend la plus petite valeur disponible 
 
 En conclusion le jeu m'a surtout fait manipuler la base de données les tokens et modifier chaque requetes API.
 
-
 Projet de Alexandre Chanzy ing4 Cybergroup 1
 🧠 Structure du projet
+lien video youtube
+https://youtu.be/srvgj6NtER0
 
 📦 backend/
  ┣ 📂model/            → Schémas Mongoose (`user.js`, `Pokemon.js`)
@@ -63,21 +64,10 @@ Authorization: Bearer <token>
 
 📚 Routes API
 
-Résumé :
-
-    getAllPokemon(name, lang, categorie, navigate)
-    minId()
-    getPokemonById(id)
-    createPokemon(pokemonData)
-    updatePokemon(pokemonData, lang)
-    deletePokemon(id)
-    getUser(email, password)
-    createUser(email, password)
-    giveCard(email, cardId)
-
 🔑 Authentification
    ✅ POST /create
       Créer un utilisateur.
+         Body :
          {
             "email": "exemple@mail.com",
             "password": "motdepasse"
@@ -87,6 +77,7 @@ Résumé :
    ✅ POST /login
       Connexion d’un utilisateur, retourne un token JWT.
 
+         Body :
          {
             "email": "exemple@mail.com",
             "password": "motdepasse"
@@ -110,6 +101,7 @@ Toutes les routes ci-dessous nécessitent un token JWT valide.
 
    ➕ POST /pokemons
       Créer une carte Pokémon :
+         Body :
          {
          "id": 150,
          "name": "Mewtwo",
@@ -130,6 +122,7 @@ Toutes les routes ci-dessous nécessitent un token JWT valide.
    ✏️ PUT /pokemons/:id/:lang
       Met à jour les données d’un Pokémon (nom dans une langue donnée, stats, etc.).
       Exemple : PUT /pokemons/150/french
+         Body :
          {
             "name": {
                "french": "Mewtwo Modifié"
@@ -145,6 +138,8 @@ Toutes les routes ci-dessous nécessitent un token JWT valide.
    🎁 BONUS : Transfert de cartes
       🔁 POST /pokemons/giveCard
       Permet de transférer une carte Pokémon à un autre utilisateur.
+
+         Body :
          {
             "email": "destinataire@mail.com",
             "cardId": 150
