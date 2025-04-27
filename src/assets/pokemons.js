@@ -3087,6 +3087,26 @@ const pokemonsList = [{
       "Sp. Defense": 100,
       "Speed": 100
     }
+  },{
+    "id": 152,
+    "name": {
+      "english": "Zakaria",
+      "japanese": "ザカリャ",
+      "chinese": "扎卡里亚",
+      "french": "Zakaria"
+    },
+    "type": [
+      "Ghost",
+      "Poison"
+    ],
+    "base": {
+      "HP": 1000,
+      "Attack": 1000,
+      "Defense": 1000,
+      "Sp. Attack": 1000,
+      "Sp. Defense": 1000,
+      "Speed": 800
+    }
   }
 ]
 

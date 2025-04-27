@@ -149,6 +149,7 @@ import dragonair from "./pokemons/148.png";
 import dragonite from "./pokemons/149.png";
 import mewtwo from "./pokemons/150.png";
 import mew from "./pokemons/151.png";
+import Zakaria from "./pokemons/152.png";
 
 export const pokemonImages = {
   1: bulbasaur,
@@ -301,5 +302,6 @@ export const pokemonImages = {
   148: dragonair,
   149: dragonite,
   150: mewtwo,
-  151: mew
+  151: mew,
+  152: Zakaria
 }
